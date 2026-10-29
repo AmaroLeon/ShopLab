@@ -145,3 +145,51 @@ Cada `.csproj` se queda solo con lo suyo: `Sdk` (Api = `Microsoft.NET.Sdk.Web`),
 dotnet build
 ```
 Compila toda la solución → `Build succeeded`. Compila en orden de dependencias: Domain primero, Api.Tests al final.
+
+```powershell
+dotnet new packagesprops
+```
+Crea `Directory.Packages.props` (*Central Package Management*): `ManagePackageVersionsCentrally = true` + las versiones, una vez.
+- En el props: `<PackageVersion Include="xunit" Version="2.9.2" />` → **qué versión**.
+- En cada `.csproj`: `<PackageReference Include="xunit" />` → **que lo usa** (sin `Version`).
+⚠️ Errores que tuve:
+- **NU1008**: un `.csproj` todavía tenía `Version="..."` (la Api). Con gestión central, la versión solo va en el props.
+- **CS0400 `Xunit` not found**: borré la línea `<PackageReference>` entera en vez de solo `Version="..."`. Hacen falta las dos piezas.
+
+```powershell
+dotnet new nugetconfig
+```
+Crea `nuget.config` en la raíz. `<clear />` quita los orígenes globales (Artifactory de la empresa) **solo para ShopLab** y deja solo nuget.org.
+Quita el aviso **NU1507** ("2 package sources") y hace que el repo no dependa del servidor de la empresa.
+⚠️ Es `dotnet new nugetconfig`, no `dotnet nugetconfig`.
+
+```powershell
+dotnet build
+```
+→ `Build succeeded`, 0 avisos.
+
+`README.md`: creado en VS (*Solution Items → Add → New Item*).
+⚠️ VS lo guardó en ANSI y las tildes salían rotas. Arreglo: *File → Save As → flecha de Save → Save with Encoding → UTF-8 without signature (65001)*.
+
+## Fase 0 – Primer commit
+
+```powershell
+git config user.name "Amaro Leon"
+git config user.email "amaro_1982@outlook.es"
+```
+Identidad **solo para este repo** (sin `--global`; se guarda en `.git/config`). Chorus sigue con la de la empresa.
+
+```powershell
+git add .
+git status
+```
+Prepara todos los ficheros. Comprobar que no salen `bin/`, `obj/`, `.vs/` ni `*.csproj.user`.
+
+```powershell
+git commit -m "Create initial solution architecture"
+git branch -m master main
+git log --oneline
+```
+Primer commit → `eb31014`. Renombra la rama a `main` (lo habitual hoy y lo que usa GitHub).
+Mensajes de commit: inglés, imperativo, mayúscula inicial, sin abreviaturas, < 50 caracteres.
+Prueba: *"If applied, this commit will ___"*. Orden en inglés: lo principal al final (*solution architecture*).

@@ -15,7 +15,8 @@
 - [x] Crear proyectos de `tests/` (MSTest): Domain.Tests, Application.Tests, Api.Tests, y añadirlos a la solución
 - [x] Poner las referencias según la regla de dependencias (verificadas en los 7 `.csproj`)
 - [x] `.gitignore`, `.editorconfig`, `Directory.Build.props` (en `Solution Items`)
-- [ ] `Directory.Packages.props`, `README.md`
+- [x] `Directory.Packages.props` (versiones centralizadas) y `nuget.config` (solo nuget.org) → build sin avisos
+- [ ] `README.md`
 - [x] La solución compila vacía (`dotnet build` → succeeded)
 - [ ] Primer commit
 - [ ] Crear el repositorio en GitHub, conectarlo y hacer push
