@@ -1,0 +1,5 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <ProjectReference Include="..\ShopLab.Application\ShopLab.Application.csproj" />
+    </ItemGroup>
+</Project>
